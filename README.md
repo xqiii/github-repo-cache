@@ -16,17 +16,17 @@ A simple REST service for fetching GitHub repository details and caching the res
 Get detailed information about a specified GitHub repository.
 
 **Path Parameters:**
-- `owner`: Repository owner (e.g., `spring-projects`)
-- `repository-name`: Repository name (e.g., `spring-boot`)
+- `owner`: Repository owner (e.g., `xqiii`)
+- `repository-name`: Repository name (e.g., `flow-canvas`)
 
 **Response Example:**
 ```json
 {
-    "fullName": "spring-projects/spring-boot",
-    "description": "Spring Boot is an open source Java-based framework...",
-    "cloneUrl": "https://github.com/spring-projects/spring-boot.git",
-    "stars": 50000,
-    "createdAt": "2020-01-01T00:00:00"
+  "fullName": "xqiii/flow-canvas",
+  "description": "一个基于 React、TypeScript 和 Vite 的轻量级流程图/关系图编辑器。",
+  "cloneUrl": "https://github.com/xqiii/flow-canvas.git",
+  "stars": 0,
+  "createdAt": "2025-11-25T09:28:55"
 }
 ```
 
@@ -101,13 +101,13 @@ mvn test -Dtest=RepositoryE2ETest
 ### Using curl
 
 ```bash
-# Get details for spring-projects/spring-boot
-curl http://localhost:8080/repositories/spring-projects/spring-boot
+# Get details for xqiii/flow-canvas
+curl http://localhost:8080/repositories/xqiii/flow-canvas
 ```
 
 ### Using Browser
 
-Visit: `http://localhost:8080/repositories/spring-projects/spring-boot`
+Visit: `http://localhost:8080/repositories/xqiii/flow-canvas`
 
 ## Configuration
 
