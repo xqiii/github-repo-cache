@@ -49,9 +49,6 @@ public class RepositoryEntity {
     @Column(nullable = false)
     private LocalDateTime createdAt;
 
-    @Column(nullable = false)
-    private LocalDateTime cachedAt;
-
     public RepositoryEntity(String owner, String repositoryName, String fullName, 
                            String description, String cloneUrl, Integer stars, 
                            LocalDateTime createdAt) {
@@ -62,7 +59,6 @@ public class RepositoryEntity {
         this.cloneUrl = cloneUrl;
         this.stars = stars;
         this.createdAt = createdAt;
-        this.cachedAt = LocalDateTime.now();
     }
 }
 
