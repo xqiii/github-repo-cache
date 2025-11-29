@@ -27,14 +27,16 @@ public class GithubApiService {
     private final RestTemplate restTemplate;
     private final String githubApiBaseUrl;
 
-    public GithubApiService(@Value("${github.api.base-url:https://api.github.com}") String githubApiBaseUrl) {
+    public GithubApiService(@Value("${github.api.base-url}") String githubApiBaseUrl,
+                            @Value("${github.api.connect-timeout:5000}") int connectTimeout,
+                            @Value("${github.api.read-timeout:10000}") int readTimeout) {
         this.restTemplate = new RestTemplate();
         this.githubApiBaseUrl = githubApiBaseUrl;
         
         // Configure timeout settings
         SimpleClientHttpRequestFactory factory = new SimpleClientHttpRequestFactory();
-        factory.setConnectTimeout(5000); // 5 seconds connection timeout
-        factory.setReadTimeout(10000);   // 10 seconds read timeout
+        factory.setConnectTimeout(connectTimeout);
+        factory.setReadTimeout(readTimeout);
         this.restTemplate.setRequestFactory(factory);
     }
 

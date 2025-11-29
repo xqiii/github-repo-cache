@@ -20,7 +20,7 @@ import java.time.ZonedDateTime;
 @Mapper
 public interface RepositoryMapper {
     
-    RepositoryMapper INSTANCE = Mappers.getMapper(RepositoryMapper.class);
+    public static final RepositoryMapper INSTANCE = Mappers.getMapper(RepositoryMapper.class);
 
     @Mapping(target = "id", ignore = true)
     @Mapping(source = "owner", target = "owner")

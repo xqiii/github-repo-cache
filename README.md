@@ -44,6 +44,7 @@ Get detailed information about a specified GitHub repository.
 - **Maven** (build tool)
 - **JUnit 5** (testing framework)
 - **Lombok** (reducing boilerplate code)
+- **MapStruct** (object mapping)
 
 ## Project Structure
 
@@ -55,9 +56,11 @@ src/
 │   │   ├── service/             # Business logic layer
 │   │   ├── repository/          # Data access layer
 │   │   ├── entity/              # Database entities
-│   │   └── dto/                 # Data transfer objects
+│   │   ├── dto/                 # Data transfer objects
+│   │   ├── mapper/              # Object mappers (MapStruct)
+│   │   └── exception/           # Exception handlers
 │   └── resources/
-│       └── application.properties
+│       └── application.yml
 └── test/
     └── java/com/github/xqiii/cache/
         ├── controller/          # Controller unit tests
@@ -111,10 +114,12 @@ Visit: `http://localhost:8080/repositories/xqiii/flow-canvas`
 
 ## Configuration
 
-Configuration file is located at `src/main/resources/application.properties`:
+Configuration file is located at `src/main/resources/application.yml`:
 
 - `server.port`: Server port (default: 8080)
 - `github.api.base-url`: GitHub API base URL (default: https://api.github.com)
+- `github.api.connect-timeout`: Connection timeout in milliseconds (default: 5000)
+- `github.api.read-timeout`: Read timeout in milliseconds (default: 10000)
 - `spring.datasource.url`: Database connection URL
 
 ## Database
@@ -139,10 +144,12 @@ The project includes three types of tests:
 
 - **Layered Architecture**: Uses Controller-Service-Repository layered architecture
 - **Caching Strategy**: First request fetches data from GitHub API and caches it, subsequent requests return directly from database
-- **Error Handling**: Proper exception handling and HTTP status code returns
+- **Error Handling**: Proper exception handling and HTTP status code returns with global exception handler
 - **Logging**: Uses SLF4J for logging
 - **Transaction Management**: Uses Spring's `@Transactional` annotation to manage database transactions
 - **Lombok**: Uses Lombok annotations to reduce boilerplate code (getters, setters, constructors)
+- **MapStruct**: Uses MapStruct for efficient object mapping between entities and DTOs
+- **REST Client**: Uses Spring's RestTemplate with configurable timeouts for GitHub API calls
 
 ## Notes
 

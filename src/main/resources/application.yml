@@ -25,6 +25,8 @@ spring:
 github:
   api:
     base-url: https://api.github.com
+    connect-timeout: 5000
+    read-timeout: 10000
 
 logging:
   level:
