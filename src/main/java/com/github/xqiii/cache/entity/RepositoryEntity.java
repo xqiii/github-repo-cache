@@ -1,5 +1,7 @@
 package com.github.xqiii.cache.entity;
 
+import com.github.xqiii.cache.dto.GithubApiResponse;
+import com.github.xqiii.cache.dto.RepositoryResponse;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -13,6 +15,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
 /**
  * Repository entity
@@ -65,6 +68,56 @@ public class RepositoryEntity {
         this.cloneUrl = cloneUrl;
         this.stars = stars;
         this.createdAt = createdAt;
+    }
+
+    /**
+     * Create RepositoryEntity from GithubApiResponse
+     */
+    public static RepositoryEntity fromGithubApiResponse(String owner, String repositoryName, GithubApiResponse githubResponse) {
+        RepositoryEntity entity = new RepositoryEntity();
+        entity.setOwner(owner);
+        entity.setRepositoryName(repositoryName);
+        entity.setFullName(githubResponse.getFullName());
+        entity.setDescription(githubResponse.getDescription());
+        entity.setCloneUrl(githubResponse.getCloneUrl());
+        entity.setStars(stargazersCountToStars(githubResponse.getStargazersCount()));
+        entity.setCreatedAt(stringToLocalDateTime(githubResponse.getCreatedAt()));
+        return entity;
+    }
+
+    /**
+     * Convert RepositoryEntity to RepositoryResponse
+     */
+    public RepositoryResponse toResponse() {
+        RepositoryResponse response = new RepositoryResponse();
+        response.setFullName(this.fullName);
+        response.setDescription(this.description);
+        response.setCloneUrl(this.cloneUrl);
+        response.setStars(this.stars);
+        response.setCreatedAt(this.createdAt);
+        return response;
+    }
+
+    /**
+     * Convert stargazers count to stars, default to 0 if null
+     */
+    private static Integer stargazersCountToStars(Integer stargazersCount) {
+        return stargazersCount != null ? stargazersCount : 0;
+    }
+
+    /**
+     * Convert string date to LocalDateTime
+     */
+    private static LocalDateTime stringToLocalDateTime(String dateString) {
+        if (dateString == null || dateString.isEmpty()) {
+            return LocalDateTime.now();
+        }
+        try {
+            ZonedDateTime zonedDateTime = ZonedDateTime.parse(dateString);
+            return zonedDateTime.toLocalDateTime();
+        } catch (Exception e) {
+            return LocalDateTime.now();
+        }
     }
 }
 

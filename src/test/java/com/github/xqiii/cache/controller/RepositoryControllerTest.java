@@ -2,6 +2,7 @@ package com.github.xqiii.cache.controller;
 
 import com.github.xqiii.cache.dto.RepositoryResponse;
 import com.github.xqiii.cache.exception.BizException;
+import com.github.xqiii.cache.exception.GlobalExceptionHandler;
 import com.github.xqiii.cache.service.RepositoryService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +28,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * @date 2025-11-29
  */
 @WebMvcTest(RepositoryController.class)
-@Import(com.github.xqiii.cache.exception.GlobalExceptionHandler.class)
+@Import(GlobalExceptionHandler.class)
 class RepositoryControllerTest {
 
     @Autowired

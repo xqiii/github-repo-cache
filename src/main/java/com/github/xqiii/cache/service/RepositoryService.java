@@ -3,10 +3,10 @@ package com.github.xqiii.cache.service;
 import com.github.xqiii.cache.dto.GithubApiResponse;
 import com.github.xqiii.cache.dto.RepositoryResponse;
 import com.github.xqiii.cache.entity.RepositoryEntity;
-import com.github.xqiii.cache.mapper.RepositoryMapper;
 import com.github.xqiii.cache.repository.RepositoryRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,14 +23,11 @@ public class RepositoryService {
 
     private static final Logger logger = LoggerFactory.getLogger(RepositoryService.class);
     
-    private final RepositoryRepository repositoryRepository;
-    private final GithubApiService githubApiService;
-
-    public RepositoryService(RepositoryRepository repositoryRepository, 
-                            GithubApiService githubApiService) {
-        this.repositoryRepository = repositoryRepository;
-        this.githubApiService = githubApiService;
-    }
+    @Autowired
+    private RepositoryRepository repositoryRepository;
+    
+    @Autowired
+    private GithubApiService githubApiService;
 
     @Transactional
     public RepositoryResponse getRepositoryDetails(String owner, String repositoryName) {
@@ -40,7 +37,7 @@ public class RepositoryService {
         
         if (cachedEntity.isPresent()) {
             logger.info("Repository found in cache: {}/{}", owner, repositoryName);
-            return RepositoryMapper.INSTANCE.toResponse(cachedEntity.get());
+            return cachedEntity.get().toResponse();
         }
         
         // Cache miss, fetch from GitHub API
@@ -48,11 +45,11 @@ public class RepositoryService {
         GithubApiResponse githubResponse = githubApiService.fetchRepositoryDetails(owner, repositoryName);
         
         // Save to cache
-        RepositoryEntity entity = RepositoryMapper.INSTANCE.toEntity(owner, repositoryName, githubResponse);
+        RepositoryEntity entity = RepositoryEntity.fromGithubApiResponse(owner, repositoryName, githubResponse);
         RepositoryEntity savedEntity = repositoryRepository.save(entity);
         logger.info("Repository details cached: {}/{}", owner, repositoryName);
         
-        return RepositoryMapper.INSTANCE.toResponse(savedEntity);
+        return savedEntity.toResponse();
     }
 }
 

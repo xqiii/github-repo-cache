@@ -44,7 +44,6 @@ Get detailed information about a specified GitHub repository.
 - **Maven** (build tool)
 - **JUnit 5** (testing framework)
 - **Lombok** (reducing boilerplate code)
-- **MapStruct** (object mapping)
 
 ## Project Structure
 
@@ -55,9 +54,8 @@ src/
 │   │   ├── controller/          # REST controllers
 │   │   ├── service/             # Business logic layer
 │   │   ├── repository/          # Data access layer
-│   │   ├── entity/              # Database entities
+│   │   ├── entity/              # Database entities (with conversion methods)
 │   │   ├── dto/                 # Data transfer objects
-│   │   ├── mapper/              # Object mappers (MapStruct)
 │   │   └── exception/           # Exception handlers
 │   └── resources/
 │       └── application.yml
@@ -148,7 +146,7 @@ The project includes three types of tests:
 - **Logging**: Uses SLF4J for logging
 - **Transaction Management**: Uses Spring's `@Transactional` annotation to manage database transactions
 - **Lombok**: Uses Lombok annotations to reduce boilerplate code (getters, setters, constructors)
-- **MapStruct**: Uses MapStruct for efficient object mapping between entities and DTOs
+- **Object Conversion**: Conversion logic is encapsulated in Entity classes (e.g., `fromGithubApiResponse()`, `toResponse()`)
 - **REST Client**: Uses Spring's RestTemplate with configurable timeouts for GitHub API calls
 
 ## Notes
