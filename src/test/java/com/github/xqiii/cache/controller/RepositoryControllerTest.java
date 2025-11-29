@@ -1,11 +1,14 @@
 package com.github.xqiii.cache.controller;
 
 import com.github.xqiii.cache.dto.RepositoryResponse;
+import com.github.xqiii.cache.exception.BizException;
 import com.github.xqiii.cache.service.RepositoryService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Import;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -18,6 +21,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(RepositoryController.class)
+@Import(com.github.xqiii.cache.exception.GlobalExceptionHandler.class)
 class RepositoryControllerTest {
 
     @Autowired
@@ -61,12 +65,16 @@ class RepositoryControllerTest {
         String repositoryName = "repo";
 
         when(repositoryService.getRepositoryDetails(owner, repositoryName))
-            .thenThrow(new RuntimeException("Repository not found: non-existent/repo"));
+            .thenThrow(new BizException("REPOSITORY_NOT_FOUND", 
+                "Repository not found: non-existent/repo", 
+                HttpStatus.NOT_FOUND.value()));
 
         // When & Then
         mockMvc.perform(get("/repositories/{owner}/{repositoryName}", owner, repositoryName)
                 .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isNotFound());
+                .andExpect(status().isNotFound())
+                .andExpect(jsonPath("$.errorCode").value("REPOSITORY_NOT_FOUND"))
+                .andExpect(jsonPath("$.message").value("Repository not found: non-existent/repo"));
     }
 }
 

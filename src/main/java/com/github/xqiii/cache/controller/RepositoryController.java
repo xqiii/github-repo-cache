@@ -4,7 +4,6 @@ import com.github.xqiii.cache.dto.RepositoryResponse;
 import com.github.xqiii.cache.service.RepositoryService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,16 +29,8 @@ public class RepositoryController {
         
         logger.info("Received request for repository: {}/{}", owner, repositoryName);
         
-        try {
-            RepositoryResponse response = repositoryService.getRepositoryDetails(owner, repositoryName);
-            return ResponseEntity.ok(response);
-        } catch (RuntimeException e) {
-            logger.error("Error processing request for {}/{}: {}", owner, repositoryName, e.getMessage());
-            if (e.getMessage() != null && e.getMessage().contains("not found")) {
-                return ResponseEntity.notFound().build();
-            }
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
+        RepositoryResponse response = repositoryService.getRepositoryDetails(owner, repositoryName);
+        return ResponseEntity.ok(response);
     }
 }
 

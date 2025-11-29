@@ -1,6 +1,7 @@
 package com.github.xqiii.cache.service;
 
 import com.github.xqiii.cache.dto.GithubApiResponse;
+import com.github.xqiii.cache.exception.BizException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -47,14 +48,28 @@ public class GithubApiService {
                 return response.getBody();
             } else {
                 logger.error("Unexpected response from GitHub API: {}", response.getStatusCode());
-                throw new RuntimeException("Failed to fetch repository details from GitHub API");
+                throw new BizException(
+                    "GITHUB_API_ERROR",
+                    "Failed to fetch repository details from GitHub API",
+                    HttpStatus.INTERNAL_SERVER_ERROR.value()
+                );
             }
         } catch (HttpClientErrorException.NotFound e) {
             logger.error("Repository not found: {}/{}", owner, repositoryName);
-            throw new RuntimeException("Repository not found: " + owner + "/" + repositoryName, e);
+            throw new BizException(
+                "REPOSITORY_NOT_FOUND",
+                "Repository not found: " + owner + "/" + repositoryName,
+                HttpStatus.NOT_FOUND.value(),
+                e
+            );
         } catch (RestClientException e) {
             logger.error("Error calling GitHub API: {}", e.getMessage(), e);
-            throw new RuntimeException("Error calling GitHub API", e);
+            throw new BizException(
+                "GITHUB_API_ERROR",
+                "Error calling GitHub API: " + e.getMessage(),
+                HttpStatus.INTERNAL_SERVER_ERROR.value(),
+                e
+            );
         }
     }
 }

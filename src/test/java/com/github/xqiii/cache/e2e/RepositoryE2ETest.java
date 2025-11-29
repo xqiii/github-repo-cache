@@ -83,7 +83,10 @@ class RepositoryE2ETest {
 
         mockMvc.perform(get("/repositories/{owner}/{repositoryName}", owner, repositoryName)
                 .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isNotFound());
+                .andExpect(status().isNotFound())
+                .andExpect(jsonPath("$.errorCode").value("REPOSITORY_NOT_FOUND"))
+                .andExpect(jsonPath("$.message").exists())
+                .andExpect(jsonPath("$.path").exists());
     }
 
     @Test

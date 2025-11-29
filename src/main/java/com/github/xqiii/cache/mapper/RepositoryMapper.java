@@ -6,12 +6,15 @@ import com.github.xqiii.cache.entity.RepositoryEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
+import org.mapstruct.factory.Mappers;
 
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 
-@Mapper(componentModel = "spring")
+@Mapper
 public interface RepositoryMapper {
+    
+    RepositoryMapper INSTANCE = Mappers.getMapper(RepositoryMapper.class);
 
     @Mapping(target = "id", ignore = true)
     @Mapping(source = "owner", target = "owner")

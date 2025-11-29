@@ -19,14 +19,11 @@ public class RepositoryService {
     
     private final RepositoryRepository repositoryRepository;
     private final GithubApiService githubApiService;
-    private final RepositoryMapper repositoryMapper;
 
     public RepositoryService(RepositoryRepository repositoryRepository, 
-                            GithubApiService githubApiService,
-                            RepositoryMapper repositoryMapper) {
+                            GithubApiService githubApiService) {
         this.repositoryRepository = repositoryRepository;
         this.githubApiService = githubApiService;
-        this.repositoryMapper = repositoryMapper;
     }
 
     @Transactional
@@ -37,7 +34,7 @@ public class RepositoryService {
         
         if (cachedEntity.isPresent()) {
             logger.info("Repository found in cache: {}/{}", owner, repositoryName);
-            return repositoryMapper.toResponse(cachedEntity.get());
+            return RepositoryMapper.INSTANCE.toResponse(cachedEntity.get());
         }
         
         // Cache miss, fetch from GitHub API
@@ -45,11 +42,11 @@ public class RepositoryService {
         GithubApiResponse githubResponse = githubApiService.fetchRepositoryDetails(owner, repositoryName);
         
         // Save to cache
-        RepositoryEntity entity = repositoryMapper.toEntity(owner, repositoryName, githubResponse);
+        RepositoryEntity entity = RepositoryMapper.INSTANCE.toEntity(owner, repositoryName, githubResponse);
         RepositoryEntity savedEntity = repositoryRepository.save(entity);
         logger.info("Repository details cached: {}/{}", owner, repositoryName);
         
-        return repositoryMapper.toResponse(savedEntity);
+        return RepositoryMapper.INSTANCE.toResponse(savedEntity);
     }
 }
 
