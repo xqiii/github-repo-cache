@@ -10,6 +10,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * Repository controller
+ * 
+ * @author xiuqiii
+ * @date 2025-11-29
+ */
 @RestController
 @RequestMapping("/repositories")
 public class RepositoryController {

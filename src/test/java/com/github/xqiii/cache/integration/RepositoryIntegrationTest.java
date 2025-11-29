@@ -25,6 +25,12 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+/**
+ * Repository integration test
+ * 
+ * @author xiuqiii
+ * @date 2025-11-29
+ */
 @SpringBootTest
 @ActiveProfiles("test")
 @Transactional

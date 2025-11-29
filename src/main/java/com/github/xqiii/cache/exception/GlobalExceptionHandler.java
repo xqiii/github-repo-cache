@@ -11,6 +11,12 @@ import org.springframework.web.servlet.NoHandlerFoundException;
 
 import jakarta.servlet.http.HttpServletRequest;
 
+/**
+ * Global exception handler
+ * 
+ * @author xiuqiii
+ * @date 2025-11-29
+ */
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 

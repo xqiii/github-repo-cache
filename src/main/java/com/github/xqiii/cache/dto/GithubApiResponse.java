@@ -6,6 +6,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+/**
+ * GitHub API response DTO
+ * 
+ * @author xiuqiii
+ * @date 2025-11-29
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Getter
 @Setter

@@ -20,6 +20,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+/**
+ * Repository controller test
+ * 
+ * @author xiuqiii
+ * @date 2025-11-29
+ */
 @WebMvcTest(RepositoryController.class)
 @Import(com.github.xqiii.cache.exception.GlobalExceptionHandler.class)
 class RepositoryControllerTest {

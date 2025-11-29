@@ -19,6 +19,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+/**
+ * Repository end-to-end test
+ * 
+ * @author xiuqiii
+ * @date 2025-11-29
+ */
 @SpringBootTest
 @AutoConfigureMockMvc
 @ActiveProfiles("test")

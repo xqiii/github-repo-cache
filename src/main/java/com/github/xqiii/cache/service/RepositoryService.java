@@ -12,6 +12,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
+/**
+ * Repository service
+ * 
+ * @author xiuqiii
+ * @date 2025-11-29
+ */
 @Service
 public class RepositoryService {
 

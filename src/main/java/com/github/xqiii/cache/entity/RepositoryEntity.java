@@ -14,6 +14,12 @@ import lombok.Setter;
 
 import java.time.LocalDateTime;
 
+/**
+ * Repository entity
+ * 
+ * @author xiuqiii
+ * @date 2025-11-29
+ */
 @Entity
 @Table(name = "repositories", uniqueConstraints = {
     @UniqueConstraint(columnNames = {"owner", "repositoryName"})

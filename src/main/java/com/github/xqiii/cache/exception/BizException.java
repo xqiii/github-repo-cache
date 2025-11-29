@@ -1,5 +1,11 @@
 package com.github.xqiii.cache.exception;
 
+/**
+ * Business exception
+ * 
+ * @author xiuqiii
+ * @date 2025-11-29
+ */
 public class BizException extends RuntimeException {
 
     private final String errorCode;

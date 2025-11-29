@@ -13,6 +13,12 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.client.RestClientException;
 
+/**
+ * GitHub API service
+ * 
+ * @author xiuqiii
+ * @date 2025-11-29
+ */
 @Service
 public class GithubApiService {
 

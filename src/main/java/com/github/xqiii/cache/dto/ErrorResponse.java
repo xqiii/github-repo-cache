@@ -8,6 +8,12 @@ import lombok.Setter;
 
 import java.time.LocalDateTime;
 
+/**
+ * Error response DTO
+ * 
+ * @author xiuqiii
+ * @date 2025-11-29
+ */
 @Getter
 @Setter
 @NoArgsConstructor

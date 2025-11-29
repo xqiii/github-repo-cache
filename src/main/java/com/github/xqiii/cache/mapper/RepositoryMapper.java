@@ -11,6 +11,12 @@ import org.mapstruct.factory.Mappers;
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 
+/**
+ * Repository mapper interface
+ * 
+ * @author xiuqiii
+ * @date 2025-11-29
+ */
 @Mapper
 public interface RepositoryMapper {
     
